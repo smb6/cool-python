@@ -4,14 +4,16 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import sys
 import pathlib
+from functools import cached_property
 
-PYTHON_VERSION = float(sys.version_info[0]) + float(sys.version_info[1]/10)
+PYTHON_VERSION = float(sys.version_info[0]) + float(sys.version_info[1] / 10)
 
 
 def print_hi(name):
+    basic = BasicStuff()
     # Use a breakpoint in the code line below to debug your script.
     print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-    print(f'Python version is {PYTHON_VERSION}')
+    print(f'Python version is {basic.python_version}')
 
     name = "Mike"
     surname = "Doe"
@@ -20,7 +22,7 @@ def print_hi(name):
     first_dictionary = dict(name="Mike", occupation="Python Developer")
     second_dictionary = dict(location="Iowa", hobby="Surf")
     # In python 3.9 use the following
-    if PYTHON_VERSION >= 3.9:
+    if basic.python_version >= 3.9:
         merged_dictionary = first_dictionary | second_dictionary
     else:
         merged_dictionary = {**first_dictionary, **second_dictionary}
@@ -32,6 +34,7 @@ def print_hi(name):
     path.touch()
     if path.exists():
         print(f"What {file_path} is?\nfile? {path.is_file()}\ndir? {path.is_dir()}")
+        path.unlink(missing_ok=False)
     else:
         print(f"File {file_path} doesn't exist")
 
@@ -50,8 +53,28 @@ def print_hi(name):
     print(f"Uneven lists with cycle special handling {new_dictionary}")
 
 
+class BasicStuff:
+
+    @cached_property
+    def mac_address(self) -> str:
+        from uuid import getnode
+        # Strip off hex character from front
+        _mac = hex(getnode())[2:]
+        # Add semicolons every two characters
+        mac = ":".join([_mac[i:i + 2] for i in range(0, len(_mac), 2)])
+        return mac
+
+    @cached_property
+    def python_version(self) -> float:
+        version = float(sys.version_info[0]) + float(sys.version_info[1] / 10)
+        return version
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print_hi('PyCharm')
+    basic = BasicStuff()
+    print(basic.mac_address)
+    print(type(basic.python_version))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
