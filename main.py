@@ -4,6 +4,7 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import sys
 import pathlib
+import logging
 from functools import cached_property
 
 PYTHON_VERSION = float(sys.version_info[0]) + float(sys.version_info[1] / 10)
@@ -59,7 +60,7 @@ class BasicStuff:
     def mac_address(self) -> str:
         from uuid import getnode
         # Strip off hex character from front
-        _mac = hex(getnode())[2:]
+        _mac = hex(getnode())[2:]       # Strip off hex character from front
         # Add semicolons every two characters
         mac = ":".join([_mac[i:i + 2] for i in range(0, len(_mac), 2)])
         return mac
@@ -72,9 +73,12 @@ class BasicStuff:
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    logging.basicConfig(filename="sample.log", filemode="w", format='%(asctime)s %(message)s', level=logging.INFO)
     print_hi('PyCharm')
     basic = BasicStuff()
     print(basic.mac_address)
+    logging.info(f"The mac address is {basic.mac_address}")
+    logging.error("THIS IS AN ERROR LOG MESSAGE")
     print(type(basic.python_version))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
