@@ -2,10 +2,13 @@
 
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+import copy
 import sys
 import pathlib
 import logging
 from functools import cached_property
+from opensky_api import OpenSkyApi
+
 
 PYTHON_VERSION = float(sys.version_info[0]) + float(sys.version_info[1] / 10)
 
@@ -44,6 +47,8 @@ def print_hi(name):
     list2 = ['one', 'two', 'three']
     new_dictionary = dict(zip(list1, list2))
     print(f"Creating new dictionary from: {list1=} and {list2=}:\n{new_dictionary}")
+    logging.info(f"Creating new dictionary from: {list1=} and {list2=}:\n{new_dictionary}")
+
 
     # Merge 2 uneven list into a dict
     from itertools import cycle
@@ -70,15 +75,53 @@ class BasicStuff:
         version = float(sys.version_info[0]) + float(sys.version_info[1] / 10)
         return version
 
+def flights_info(bbox: tuple = None, min_height: int = 1000):
+    # min_height = 1000
+    api = OpenSkyApi()
+    s = api.get_states(bbox=bbox)
+    flights_low = [x for x in s.states if x.geo_altitude is not None and x.geo_altitude < min_height]
+    for f in flights_low:
+        print(f)
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    logging.basicConfig(filename="sample.log", filemode="w", format='%(asctime)s %(message)s', level=logging.INFO)
-    print_hi('PyCharm')
-    basic = BasicStuff()
-    print(basic.mac_address)
-    logging.info(f"The mac address is {basic.mac_address}")
-    logging.error("THIS IS AN ERROR LOG MESSAGE")
-    print(type(basic.python_version))
+    # logging.basicConfig(filename="sample.log", filemode="w", level=logging.INFO,
+    #                     format='%(asctime)s - %(funcName)s - %(levelname)s: %(message)s')
+    # print_hi('PyCharm')
+    # basic = BasicStuff()
+    # print(basic.mac_address)
+    # logging.info(f"The mac address is {basic.mac_address}")
+    # logging.error("THIS IS AN ERROR LOG MESSAGE")
+    # print(type(basic.python_version))
+    #
+    # languages = ['Java', 'C++', 'Rust', 'Python', 'Julia', 'Javascript']
+    # f, *_, l = languages
+    # lang = copy.deepcopy(languages)
+    # for l in languages:
+    #     languages.remove(l)
+    # print(languages)
+    #
+    # https://opensky-network.org/api/states/all?lamin=31.20497889719949&lomin=34.95291492180309&lamax=32.17278392864499&lomax=35.90107084724819
+    # [min_latitude, max_latitude, min_longitude, max_latitude]
+    # KS area
+    bbox = (32.20497889719949, 32.17278392864499, 34.95291492180309, 3.90107084724819)
+    # Hasharon area
+    # 32.27777909571126, 34.83415550030797
+    # 32.020708710245614, 34.99773932311293
+    bbox = (32.020708710245614, 32.27777909571126, 34.83415550030797, 34.99773932311293)
+    a = flights_info(bbox=bbox, min_height=1000)
+    print(a)
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+# SELECT SUBSTRING(
+#                   Code,CHARINDEX('/',Code)+1,
+#                   (
+#                   LEN(Code-CHARINDEX('#', REVERSE(Code)
+#                   )
+#                   )-
+#                   CHARINDEX('/',Code)
+#                   )
+#                   ) AS Result FROM #tb
