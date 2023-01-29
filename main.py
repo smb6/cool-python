@@ -4,11 +4,13 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import copy
 import sys
+import json
 import pathlib
 import logging
 from functools import cached_property
 from opensky_api import OpenSkyApi
 
+from datetime import datetime
 
 PYTHON_VERSION = float(sys.version_info[0]) + float(sys.version_info[1] / 10)
 
@@ -49,7 +51,6 @@ def print_hi(name):
     print(f"Creating new dictionary from: {list1=} and {list2=}:\n{new_dictionary}")
     logging.info(f"Creating new dictionary from: {list1=} and {list2=}:\n{new_dictionary}")
 
-
     # Merge 2 uneven list into a dict
     from itertools import cycle
     list1 = ['A', 'B', 'C', 'D', 'E']
@@ -65,7 +66,7 @@ class BasicStuff:
     def mac_address(self) -> str:
         from uuid import getnode
         # Strip off hex character from front
-        _mac = hex(getnode())[2:]       # Strip off hex character from front
+        _mac = hex(getnode())[2:]  # Strip off hex character from front
         # Add semicolons every two characters
         mac = ":".join([_mac[i:i + 2] for i in range(0, len(_mac), 2)])
         return mac
@@ -74,6 +75,7 @@ class BasicStuff:
     def python_version(self) -> float:
         version = float(sys.version_info[0]) + float(sys.version_info[1] / 10)
         return version
+
 
 def flights_info(bbox: tuple = None, min_height: int = 1000):
     # min_height = 1000
@@ -84,8 +86,59 @@ def flights_info(bbox: tuple = None, min_height: int = 1000):
         print(f)
 
 
+def _list_of_dicts_keys():
+    _list_of_dicts = [
+        {"name": "Tom", "age": 10},
+        {"name": "Mark", "age": 5, "height": 4},
+        {"name": "Pam", "age": 7, "Zone": 3}
+    ]
+    all_keys = set().union(*(d.keys() for d in _list_of_dicts))
+    all_keys_sorted_i = sorted(all_keys, key=str.casefold)
+    print(all_keys_sorted_i)
+
+
+def _to_json():
+    sample = {"name": "Pam", "age": 7, "Zone": 3}
+    sample['title'] = "String"
+    sample['somedate'] = datetime.utcnow()
+    _jsoned = json.dumps(sample, sort_keys=True, default=str)
+    print(_jsoned)
+    exit(99)
+
+
+def _dict_join():
+    # Initializing the dictionaries
+    d1 = {'fruit': 'Apple', 'calories': 100}
+    d2 = {'vegetable': 'Tomato', 'calories': 50}
+    print("d1: ", d1)
+    print("d2: ", d2)
+    # Using lambda function first copies d1 in l, it will then update l by merging it with d2
+    merge = (lambda l=d1.copy(): (l.update(d2), l)[1])()
+    m = d1.copy()
+    n = (m.update(d2), m)
+    print("Resultant merged Dictionary: ", merge)
+    exit(99)
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    _dict_join()
+    _to_json()
+    _list_of_dicts_keys()
+    ascii = [chr(n) for n in range(256)]  # No errors
+    print(ascii)  # No errors
+    print(dict(zip(ascii, ascii)))  # No errors
+    import csv
+
+    ascii_0 = copy.deepcopy(ascii)
+    ascii_0.pop(0)
+    data_0 = csv.DictReader(ascii_0)
+    for line in data_0:
+        print(line)  # No Errors
+
+    data = csv.DictReader(ascii)
+    for line in data:
+        print(line)  # NULL Byte Error
     # logging.basicConfig(filename="sample.log", filemode="w", level=logging.INFO,
     #                     format='%(asctime)s - %(funcName)s - %(levelname)s: %(message)s')
     # print_hi('PyCharm')
@@ -112,7 +165,6 @@ if __name__ == '__main__':
     bbox = (32.020708710245614, 32.27777909571126, 34.83415550030797, 34.99773932311293)
     a = flights_info(bbox=bbox, min_height=1000)
     print(a)
-
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
