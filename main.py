@@ -120,8 +120,15 @@ def _dict_join():
     exit(99)
 
 
+def get_mac_address() -> hex:
+    from uuid import getnode
+    mac = hex(getnode())
+    return mac
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    print(get_mac_address())
     _dict_join()
     _to_json()
     _list_of_dicts_keys()
