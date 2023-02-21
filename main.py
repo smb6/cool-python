@@ -173,6 +173,7 @@ if __name__ == '__main__':
     a = flights_info(bbox=bbox, min_height=1000)
     print(a)
     print("base 1")
+    print("base 2")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
