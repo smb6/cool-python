@@ -32,7 +32,8 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 fh = logging.FileHandler('tmp.log')
 sh = logging.StreamHandler(sys.stdout)
-formatter = logging.Formatter('[%(asctime)s] %(levelname)s [%(filename)s.%(funcName)s:%(lineno)d] %(message)s', datefmt='%a, %d %b %Y %H:%M:%S')
+formatter = logging.Formatter('[%(asctime)s] %(levelname)s [%(filename)s.%(funcName)s:%(lineno)d] %(message)s',
+                              datefmt='%a, %d %b %Y %H:%M:%S')
 fh.setFormatter(formatter)
 sh.setFormatter(formatter)
 logger.addHandler(fh)
@@ -53,7 +54,7 @@ def extract_ctry_date_and_ext_from_filename(filename: str):
 def start_session():
     func_name_inspect = inspect.currentframe().f_code.co_name
     func_name_sys = sys._getframe().f_code.co_name
-    logger.info("\n" + "*" * 50 +"\n")
+    logger.info("\n" + "*" * 50 + "\n")
     yield
     logger.info("\n\n" + "#" * 50)
 
@@ -91,6 +92,7 @@ def test_us_csv_file_name():
 @pytest.fixture(scope="module")
 def test_gb_csv_file_name():
     return "gb_20220917.csv"
+
 
 @pytest.mark.usefixtures("start_session", "setup_chip", "firmware_setup", "software_setup")
 @pytest.mark.parametrize(
