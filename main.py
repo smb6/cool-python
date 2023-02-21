@@ -172,6 +172,7 @@ if __name__ == '__main__':
     bbox = (32.020708710245614, 32.27777909571126, 34.83415550030797, 34.99773932311293)
     a = flights_info(bbox=bbox, min_height=1000)
     print(a)
+    print("Some new stuff in develop")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
