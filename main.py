@@ -126,6 +126,9 @@ def get_mac_address() -> hex:
     return mac
 
 
+def func_for_test_base(name: str):
+    print(f"Hello {name}")
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print(get_mac_address())
@@ -172,6 +175,7 @@ if __name__ == '__main__':
     bbox = (32.020708710245614, 32.27777909571126, 34.83415550030797, 34.99773932311293)
     a = flights_info(bbox=bbox, min_height=1000)
     print(a)
+    func_for_test_base("CShell")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
