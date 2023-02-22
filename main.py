@@ -128,6 +128,8 @@ def get_mac_address() -> hex:
 
 def func_cool_in_staging(name: str):
     print(f"Hello {name}")
+    print("1")
+    print("2")
 
 
 # Press the green button in the gutter to run the script.
