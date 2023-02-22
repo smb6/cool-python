@@ -177,6 +177,8 @@ if __name__ == '__main__':
     a = flights_info(bbox=bbox, min_height=1000)
     print(a)
     func_cool_in_staging("CShell")
+    print("1")
+    print("2")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
