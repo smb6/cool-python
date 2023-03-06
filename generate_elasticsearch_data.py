@@ -37,7 +37,7 @@ def generate_fake_document(count: int = 100) -> List[Dict]:
         "uuid": _("uuid"),
         "name": _("text.word"),
         "version": _("version", pre_release=True),
-        "timestamp": _("timestamp", posix=False, start=2020, end=2021),
+        "timestamp": _("timestamp", posix=False, start=2020, end=2023),
         "owner": {
             "email": _("person.email", key=str.lower),
             "token": _("token_hex"),

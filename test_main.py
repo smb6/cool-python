@@ -38,6 +38,16 @@ sh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.addHandler(sh)
 
+from elasticsearch import Elasticsearch, RequestsHttpConnection
+from cmreslogging.handlers import CMRESHandler
+handler = CMRESHandler(hosts=[{'host': 'localhost', 'port': 9200}],
+                           auth_type=CMRESHandler.AuthType.NO_AUTH,
+                           es_index_name="my_python_index")
+log = logging.getLogger("PythonTest")
+logger.setLevel(logging.INFO)
+logger.addHandler(handler)
+
+
 
 def extract_ctry_date_and_ext_from_filename(filename: str):
     file_name_regex_pat = r"(\w+)_(\d{8})\.(.*)"
@@ -101,9 +111,10 @@ def test_gb_csv_file_name():
         ("test_gb_csv_file_name", ("gb", "20220917", "csv")),
     ],
 )
-def test_extract_ctry_date_and_ext_from_fileanme(filename, expected, request):
+def test_extract_ctry_date_and_ext_from_filename(filename, expected, request):
     # 2. add 'request' fixture to the test's arguments ^^
 
     # 3. convert string to fixture value
     filename = request.getfixturevalue(filename)
+    a = logger.hasHandlers()
     assert extract_ctry_date_and_ext_from_filename(filename) == expected
