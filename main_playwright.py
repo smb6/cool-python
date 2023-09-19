@@ -4,6 +4,8 @@ import time
 
 from playwright.sync_api import Page, expect, Playwright, sync_playwright
 
+HEB_DEGEM = "דגם"
+
 def find_kamiq(playwright):
     browser = playwright.chromium.launch(headless=True)
     # page = browser.new_page()
@@ -25,7 +27,9 @@ def find_kamiq(playwright):
     mm = page.locator("#filter-by-model-input").all_inner_texts()
     pp = mm[0].split('\n')
     # page.get_by_label("filter-by-make-input").select_option(value="98")
-    # print(ll)
+    # print(ll)\
+    pp.remove(HEB_DEGEM)
+    print(f"Found {len(pp)} models")
     print(pp)
     if 'פאביה' in pp:
         print('FABIA!!!')
