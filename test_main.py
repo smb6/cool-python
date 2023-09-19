@@ -92,6 +92,7 @@ def test_us_csv_file_name():
 def test_gb_csv_file_name():
     return "gb_20220917.csv"
 
+
 @pytest.mark.usefixtures("start_session", "setup_chip", "firmware_setup", "software_setup")
 @pytest.mark.parametrize(
     "filename,expected",
@@ -101,7 +102,7 @@ def test_gb_csv_file_name():
         ("test_gb_csv_file_name", ("gb", "20220917", "csv")),
     ],
 )
-def test_extract_ctry_date_and_ext_from_fileanme(filename, expected, request):
+def test_extract_ctry_date_and_ext_from_filename(filename, expected, request):
     # 2. add 'request' fixture to the test's arguments ^^
 
     # 3. convert string to fixture value

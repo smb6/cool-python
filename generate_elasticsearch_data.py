@@ -37,7 +37,7 @@ def generate_fake_document(count: int = 100) -> List[Dict]:
         "uuid": _("uuid"),
         "name": _("text.word"),
         "version": _("version", pre_release=True),
-        "timestamp": _("timestamp", posix=False, start=2020, end=2021),
+        # "timestamp": _("timestamp", posix=False, start=2020, end=2021),
         "owner": {
             "email": _("person.email", key=str.lower),
             "token": _("token_hex"),
@@ -59,7 +59,8 @@ def generate_fake_document(count: int = 100) -> List[Dict]:
 
 def _insert_to_es(documents: List):
     for doc in documents:
-        es.index(index="random_users", document=doc)
+        # es.index(index="random_users", document=doc)
+        es.index(index="users-", document=doc)
 
     print(f"Done inserting {len(documents)} documents")
 

@@ -15,11 +15,19 @@ from datetime import datetime
 PYTHON_VERSION = float(sys.version_info[0]) + float(sys.version_info[1] / 10)
 
 
-def print_hi(name):
+def print_hi(name: str = 'George'):
     basic = BasicStuff()
     # Use a breakpoint in the code line below to debug your script.
     print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
     print(f'Python version is {basic.python_version}')
+    print(f'{basic._python_version}')
+    basic._python_version = 3.10
+    print(f'Python version is {basic.python_version}')
+    print(f'{format(basic._python_version, ".2f")}')
+    basic._python_version = '3.11'
+    print(f'Python version is {basic.python_version}')
+    print(f'{format(basic._python_version, ".2f")}')
+
 
     name = "Mike"
     surname = "Doe"
@@ -61,6 +69,21 @@ def print_hi(name):
 
 
 class BasicStuff:
+
+    def __init__(self):
+        self.__python_version = float(sys.version_info[0]) + float(sys.version_info[1] / 10)
+
+    @property
+    def _python_version(self):
+        return self.__python_version
+
+    @_python_version.setter
+    def _python_version(self, new_version: int):
+        if isinstance(new_version, float) or isinstance(new_version, int):
+            if new_version > 0:
+                self.__python_version = new_version
+        else:
+            print(f'Given {new_version=} is not int nor float')
 
     @cached_property
     def mac_address(self) -> str:
@@ -132,6 +155,7 @@ def func_cool_in_staging(name: str):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    print_hi()
     print(get_mac_address())
     _dict_join()
     _to_json()
