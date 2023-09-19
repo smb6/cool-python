@@ -4,3 +4,4 @@ mimesis
 fastapi
 elasticsearch-logging-handler
 flask
+requests

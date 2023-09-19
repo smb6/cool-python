@@ -102,6 +102,7 @@ def test_us_csv_file_name():
 def test_gb_csv_file_name():
     return "gb_20220917.csv"
 
+
 @pytest.mark.usefixtures("start_session", "setup_chip", "firmware_setup", "software_setup")
 @pytest.mark.parametrize(
     "filename,expected",
