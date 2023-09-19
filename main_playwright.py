@@ -5,7 +5,7 @@ import time
 from playwright.sync_api import Page, expect, Playwright, sync_playwright
 
 def find_kamiq(playwright):
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     # page = browser.new_page()
     # chromium = playwright.chromium
     # browser = chromium.launch()
@@ -29,11 +29,14 @@ def find_kamiq(playwright):
     print(pp)
     if 'פאביה' in pp:
         print('FABIA!!!')
-        page.locator("#filter-by-model-input").select_option(value="185")
-        time.sleep(5)
+        # page.locator("#filter-by-model-input").select_option(value="185")
+        # time.sleep(5)
 
     if 'קאמיק' in pp:
         print('KAMIQ!!!')
+
+    if 'קארוק' in pp:
+        print('KAROQ!!!')
 
 
 if __name__ == '__main__':
