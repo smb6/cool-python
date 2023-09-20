@@ -3,6 +3,8 @@ import asyncio
 import time
 
 from playwright.sync_api import Page, expect, Playwright, sync_playwright
+# from bidi.algorithm import get_display
+# import bidiutils
 
 HEB_DEGEM = "דגם"
 
@@ -35,13 +37,15 @@ def find_kamiq(playwright):
         print('FABIA!!!')
         # page.locator("#filter-by-model-input").select_option(value="185")
         # time.sleep(5)
+    else:
+        print('\n\nNO FABIA :-(')
 
     if 'קאמיק' in pp:
-        print('KAMIQ!!!')
+        print('\n\nFOUND KAMIQ!!!')
+    else:
+        print('\n\nNO KAMIQ :-(')
 
-    if 'קארוק' in pp:
-        print('KAROQ!!!')
-
+    print("\n\n")
 
 if __name__ == '__main__':
     with sync_playwright() as playwright:
