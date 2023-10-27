@@ -46,6 +46,10 @@ def find_kamiq(playwright):
         print('\n\nNO KAMIQ :-(')
 
     print("\n\n")
+    prod: [{None, None}] = []
+
+    prod.append({'key': 'key', })
+
 
 if __name__ == '__main__':
     with sync_playwright() as playwright:
