@@ -4,13 +4,7 @@ import uuid
 from datetime import datetime
 from elasticsearch import Elasticsearch
 
-from mimesis.enums import Gender
-from mimesis.locales import Locale
-from mimesis.schema import Field, Schema
-
 es = Elasticsearch("http://localhost:9200")
-
-
 #
 # doc = {
 #     'author': 'pabloc',
@@ -33,18 +27,38 @@ es = Elasticsearch("http://localhost:9200")
 
 
 def generate_fake_document(count: int = 100) -> List[Dict]:
+    from mimesis.enums import Gender
+    from mimesis.locales import Locale
+    from mimesis.schema import Field, Schema
+
+    address = mimesis.Address()
+
     _ = Field(locale=Locale.EN)
     schema = Schema(schema=lambda: {
         "pk": _("increment"),
         "uuid": _("uuid"),
         "name": _("text.word"),
         "version": _("version", pre_release=True),
-        "timestamp": _("timestamp", posix=False, start=2020, end=2023),
+        "timestamp": _("timestamp", posix=False, start=2023, end=2023),
         "owner": {
             "email": _("person.email", key=str.lower),
             "token": _("token_hex"),
             "creator": _("full_name"),
         },
+        "locations": [
+            {"lat": address.latitude(),
+             "lon": address.longitude()
+             },
+            {"lat": address.latitude(),
+             "lon": address.longitude()
+             },
+            {"lat": address.latitude(),
+             "lon": address.longitude()
+             },
+            {"lat": address.latitude(),
+             "lon": address.longitude()
+             }
+        ],
         # "battery": f'\n\t{{level = \"{_("float_number", start=0, end=1, precision=2)}\";\n}}'
         # ,
         "is_new": False

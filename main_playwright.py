@@ -2,6 +2,7 @@ import re
 import asyncio
 import time
 
+import requests
 from playwright.sync_api import Page, expect, Playwright, sync_playwright
 # from bidi.algorithm import get_display
 # import bidiutils
@@ -52,5 +53,14 @@ def find_kamiq(playwright):
 
 
 if __name__ == '__main__':
-    with sync_playwright() as playwright:
-        find_kamiq(playwright)
+    import urllib
+
+    # url = 'https://data.gov.il/api/3/action/datastore_search?resource_id=053cea08-09bc-40ec-8f7a-156f0677aff3&limit=5&q=title:jones'
+    # fileobj = urllib.request.urlopen(url)
+    # print(fileobj.read())
+    CARS_URL = "https://data.gov.il/api/3/action/datastore_search?resource_id=053cea08-09bc-40ec-8f7a-156f0677aff3"
+    CARS_URL = "https://data.gov.il/api/3/action/datastore_search?mispar_rechev=5537334"
+    response = requests.get(CARS_URL)
+    print(response.json())
+    # with sync_playwright() as playwright:
+    #     find_kamiq(playwright)
