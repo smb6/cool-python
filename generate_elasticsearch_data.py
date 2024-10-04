@@ -4,7 +4,13 @@ import uuid
 from datetime import datetime
 from elasticsearch import Elasticsearch
 
+from mimesis.enums import Gender
+from mimesis.locales import Locale
+from mimesis.schema import Field, Schema
+
 es = Elasticsearch("http://localhost:9200")
+
+
 #
 # doc = {
 #     'author': 'pabloc',
@@ -27,10 +33,6 @@ es = Elasticsearch("http://localhost:9200")
 
 
 def generate_fake_document(count: int = 100) -> List[Dict]:
-    from mimesis.enums import Gender
-    from mimesis.locales import Locale
-    from mimesis.schema import Field, Schema
-
     _ = Field(locale=Locale.EN)
     schema = Schema(schema=lambda: {
         "pk": _("increment"),
