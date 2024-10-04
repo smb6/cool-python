@@ -41,7 +41,7 @@ def calculate_9th_digit(id8):
     return str(check_digit)
 
 if __name__ == '__main__':
-    id = '01582749'
+    id = ''
     ret = calculate_9th_digit(id)
     full_id = id + ret
     print(ret)
