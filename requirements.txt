@@ -6,3 +6,4 @@ elasticsearch-logging-handler
 flask
 requests
 playwright
+qrcode

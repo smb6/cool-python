@@ -7,8 +7,6 @@ from datetime import datetime
 from elasticsearch import Elasticsearch
 
 es = Elasticsearch("http://localhost:9200")
-
-
 #
 # doc = {
 #     'author': 'pabloc',
@@ -34,7 +32,7 @@ def generate_fake_document(count: int = 100) -> List[Dict]:
     from mimesis.enums import Gender
     from mimesis.locales import Locale
     from mimesis.schema import Field, Schema
-    
+
     address = mimesis.Address()
 
     _ = Field(locale=Locale.EN)
