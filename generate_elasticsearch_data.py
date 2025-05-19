@@ -1,3 +1,5 @@
+import random
+
 import mimesis
 from typing import Dict, List
 import uuid
@@ -41,7 +43,7 @@ def generate_fake_document(count: int = 100) -> List[Dict]:
         "uuid": _("uuid"),
         "name": _("text.word"),
         "version": _("version", pre_release=True),
-        "timestamp": _("timestamp", posix=False, start=2023, end=2023),
+        "timestamp": _("timestamp", posix=False, start=2024),
         "owner": {
             "email": _("person.email", key=str.lower),
             "token": _("token_hex"),
@@ -61,8 +63,8 @@ def generate_fake_document(count: int = 100) -> List[Dict]:
              "lon": address.longitude()
              }
         ],
-        # "battery": f'\n\t{{level = \"{_("float_number", start=0, end=1, precision=2)}\";\n}}'
-        # ,
+        "battery": f'\n\t{{level = \"{_("float_number", start=0, end=1, precision=2)}\";\n}}'
+        ,
         "is_new": False
 
     }).create(iterations=count)
@@ -76,12 +78,15 @@ def generate_fake_document(count: int = 100) -> List[Dict]:
 
 
 def _insert_to_es(documents: List):
+    i = random.randint(1, 100)
     for doc in documents:
-        es.index(index="random_users", document=doc)
-
+        # es.index(index="users", document=doc)
+        es.index(index=f"active_users", document=doc)
+        es.index(index=f"deletion_users-00", document=doc)
+    #
     print(f"Done inserting {len(documents)} documents")
 
 
 if __name__ == '__main__':
-    p = generate_fake_document()
+    p = generate_fake_document(count=1000)
     _insert_to_es(p)

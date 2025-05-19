@@ -155,25 +155,64 @@ def func_cool_in_staging(name: str):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi()
-    print(get_mac_address())
-    _dict_join()
-    _to_json()
-    _list_of_dicts_keys()
-    ascii = [chr(n) for n in range(256)]  # No errors
-    print(ascii)  # No errors
-    print(dict(zip(ascii, ascii)))  # No errors
-    import csv
 
-    ascii_0 = copy.deepcopy(ascii)
-    ascii_0.pop(0)
-    data_0 = csv.DictReader(ascii_0)
-    for line in data_0:
-        print(line)  # No Errors
+    def find_key_path(key, dictionary, path=''):
+        for k, v in dictionary.items():
+            if k == key:
+                return path + k
+            elif isinstance(v, dict):
+                result = find_key_path(key, v, path + k + '->')
+                if result:
+                    return result
+        return None
 
-    data = csv.DictReader(ascii)
-    for line in data:
-        print(line)  # NULL Byte Error
+
+    # Example dictionary
+    example_dict = {
+        'a': {
+            'b': {
+                'c': 1,
+                'd': 2
+            },
+            'e': {
+                'f': 3,
+                'g': {
+                    'h': 4
+                }
+            }
+        }
+    }
+
+    key_to_find = 'h'
+    path = find_key_path(key_to_find, example_dict)
+    if path:
+        print(f"Path to key '{key_to_find}': {path}")
+    else:
+        print(f"Key '{key_to_find}' not found in dictionary.")
+
+    # print_hi()
+    # print(get_mac_address())
+    # _dict_join()
+    # _to_json()
+    # _list_of_dicts_keys()
+    # ascii = [chr(n) for n in range(256)]  # No errors
+    # print(ascii)  # No errors
+    # print(dict(zip(ascii, ascii)))  # No errors
+    # import csv
+    #
+    # ascii_0 = copy.deepcopy(ascii)
+    # ascii_0.pop(0)
+    # data_0 = csv.DictReader(ascii_0)
+    # for line in data_0:
+    #     print(line)  # No Errors
+    #
+    # data = csv.DictReader(ascii)
+    # for line in data:
+    #     print(line)  # NULL Byte Error
+
+
+
+
     # logging.basicConfig(filename="sample.log", filemode="w", level=logging.INFO,
     #                     format='%(asctime)s - %(funcName)s - %(levelname)s: %(message)s')
     # print_hi('PyCharm')
