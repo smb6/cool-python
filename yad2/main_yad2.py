@@ -2,6 +2,11 @@ from yad2_scraper import fetch_vehicle_category, Field
 import pandas as pd
 import json
 
+"""
+/venv/lib/python3.13/site-packages/yad2_scraper/__init__.py
+url = "https://www.yad2.co.il/vehicles/cars?manufacturer=40&model=10544%2C10541%2C10550&year=2021-2023&engineval=1200--1&hand=0-1&ownerID=1&yad2_source=HP_all_latestSearches"
+
+"""
 
 from yad2_scraper import Yad2Scraper, Yad2Category, QueryFilters, OrderBy
 from yad2_scraper.vehicles import (
@@ -15,8 +20,13 @@ scraper = Yad2Scraper(request_defaults={"timeout": 5}, max_request_attempts=3)
 
 # Fetch businesses-for-sale category with filters
 url = "https://www.yad2.co.il/vehicles/cars?manufacturer=40&model=10544%2C10541%2C10550&year=2021-2023&engineval=1200--1&hand=0-1&ownerID=1&yad2_source=HP_all_latestSearches"
-# query_filters = QueryFilters(price_range=(10000, 250000), order_by=OrderBy.PRICE_LOWEST_TO_HIGHEST)
-# businesses_for_sale_category = scraper.fetch_category(url, Yad2Category)#, params=query_filters)
+# query_filters = QueryFilters(price_range=(10000, 120000), order_by=OrderBy.PRICE_LOWEST_TO_HIGHEST)
+# businesses_for_sale_category = scraper.fetch_category(url, Yad2Category, params=query_filters)
+#
+# for c in businesses_for_sale_category.load_next_data():
+#     print(c)
+
+
 # data = businesses_for_sale_category.load_next_data().get_data()
 
 # Initialize the vehicle category scraper
@@ -26,9 +36,17 @@ cars_category = fetch_vehicle_category("cars")
 data = cars_category.load_next_data().get_data()
 
 for car_data in cars_category.load_next_data().get_data():
-    print(car_data.model(Field.ENGLISH_TEXT))
-    print(car_data.test_date)
-    print(car_data.price)
+    if car_data.manufacturer(Field.ENGLISH_TEXT) is not None:
+        print(car_data.model(Field.ENGLISH_TEXT))
+        print(car_data.created_at)
+        print(car_data.updated_at)
+        print(car_data.rebounced_at)
+        print(car_data.year_of_production)
+        print(car_data.km)
+        print(car_data.price)
+        print(car_data.customer.get('agencyName'))
+        print(car_data.customer.get('name'))
+        print(car_data.customer_name)
 
 # # Extract relevant fields
 # records = []

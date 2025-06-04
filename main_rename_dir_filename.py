@@ -76,6 +76,7 @@ def flatten_and_copy_files(base_dir):
             shutil.copy2(file_path, destination)
             print(f"Copied: {file_path} -> {destination}")
 
+
 # Example usage
 # flatten_and_copy_files('/path/to/your/base_dir')  # Replace with your actual base directory
 
