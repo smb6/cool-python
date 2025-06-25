@@ -1,0 +1,17 @@
+[project]
+name = "wechat-utils"
+version = "0.1.0"
+description = "WeChat backup dumper and mock generator"
+authors = [{name = "Example Dev"}]
+requires-python = ">=3.9"
+dependencies = [
+    "click>=8.1",
+    "mimesis>=15.0"
+]
+
+[project.scripts]
+wechat-dump = "wechat_utils.dump:cli"
+wechat-mockgen = "wechat_utils.mockgen:cli"
+
+[tool.pytest.ini_options]
+addopts = "-q"

@@ -1,0 +1,3 @@
+[console_scripts]
+wechat-dump = wechat_utils.dump:cli
+wechat-mockgen = wechat_utils.mockgen:cli

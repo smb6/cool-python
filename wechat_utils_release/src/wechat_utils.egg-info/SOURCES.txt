@@ -1,0 +1,12 @@
+pyproject.toml
+src/wechat_utils/__init__.py
+src/wechat_utils/_helpers.py
+src/wechat_utils/dump.py
+src/wechat_utils/mockgen.py
+src/wechat_utils.egg-info/PKG-INFO
+src/wechat_utils.egg-info/SOURCES.txt
+src/wechat_utils.egg-info/dependency_links.txt
+src/wechat_utils.egg-info/entry_points.txt
+src/wechat_utils.egg-info/requires.txt
+src/wechat_utils.egg-info/top_level.txt
+tests/test_basic.py
